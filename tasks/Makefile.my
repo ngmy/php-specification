@@ -1,0 +1,28 @@
+## ローカル環境を起動する
+my/up:
+	docker-compose up -d ${ARG}
+	make my/composer ARG=install
+	make my/composer-bin ARG="all install"
+
+## ローカル環境を終了する
+my/down:
+	docker-compose stop ${ARG}
+
+## composerコマンドを実行する
+my/composer:
+	docker-compose exec php composer ${ARG}
+
+## composer binコマンドを実行する
+my/composer-bin:
+	docker-compose exec php composer bin ${ARG}
+
+## テストを実行する
+my/test:
+	docker-compose exec php phpunit ${ARG}
+
+## 静的解析を実行する
+my/lint:
+	docker-compose exec php phpstan clear-result-cache
+	docker-compose exec php phpstan analyse ${ARG}
+
+# vim: set ft=make:

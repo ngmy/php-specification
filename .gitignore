@@ -1,0 +1,10 @@
+# Composer
+/vendor/
+/vendor-bin/**/vendor/
+
+# PHPUnit
+/phpunit.xml
+/.phpunit.result.cache
+
+# PHPStan
+/phpstan.neon

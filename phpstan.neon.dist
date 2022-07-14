@@ -1,0 +1,11 @@
+parameters:
+  level: max
+  paths:
+    - src
+    - tests
+  reportUnmatchedIgnoredErrors: false
+  bootstrapFiles:
+    - vendor-bin/phpstan/vendor/autoload.php
+    - vendor-bin/phpunit/vendor/autoload.php
+
+# vim: set ft=yaml:
