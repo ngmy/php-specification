@@ -5,7 +5,7 @@
 [![test](https://github.com/ngmy/php-specification/actions/workflows/php.yml/badge.svg)](https://github.com/ngmy/php-specification/actions/workflows/php.yml)
 [![coverage](https://coveralls.io/repos/github/ngmy/php-specification/badge.svg?branch=master)](https://coveralls.io/github/ngmy/php-specification?branch=master)
 
-This is a library to help implement [the specification pattern](https://www.martinfowler.com/apsupp/spec.pdf) in PHP.  
+This is a library to help implement the [specification pattern](https://www.martinfowler.com/apsupp/spec.pdf) in PHP.  
 It provides on-memory validation, on-memory and ORM selection, and specification composite.
 
 ## Installation
@@ -34,7 +34,7 @@ declare(strict_types=1);
 use Ngmy\Specification\AbstractSpecification;
 
 /**
- * Popular user Specification.
+ * Popular user specification.
  *
  * @extends AbstractSpecification<User>
  */
