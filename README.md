@@ -112,15 +112,15 @@ public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
 }
 ```
 
-By calling the `applyToDoctrine` method passing the Eloquent builder, you can add selection criteria to the query.
+By calling the `applyToDoctrine` method passing the query builder, you can add selection criteria to the query.
 
 ```php
 /** @var \Doctrine\ORM\EntityManager $entityManager */
 $queryBuilder = $entityManager->createQueryBuilder();
 $queryBuilder->select('u')->from(User::class, 'u'); // User is your Doctrine entity
 $spec = new PopularUserSpecification();
-$spec->applyToEloquent($queryBuilder);
-$popularUsers = $query->getQuery()->getResult();
+$spec->applyToDoctrine($queryBuilder);
+$popularUsers = $queryBuilder->getQuery()->getResult();
 ```
 
 ### Composite

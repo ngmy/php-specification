@@ -111,15 +111,15 @@ public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
 }
 ```
 
-`applyToDoctrine`メソッドにクエリビルダーを渡して呼び出すことで、クエリーに選択条件を追加できます。
+`applyToDoctrine`メソッドにクエリービルダーを渡して呼び出すことで、クエリーに選択条件を追加できます。
 
 ```php
 /** @var \Doctrine\ORM\EntityManager $entityManager */
 $queryBuilder = $entityManager->createQueryBuilder();
 $queryBuilder->select('u')->from(User::class, 'u'); // UserはあなたのDoctrineエンティティーです
 $spec = new PopularUserSpecification();
-$spec->applyToEloquent($queryBuilder);
-$popularUsers = $query->getQuery()->getResult();
+$spec->applyToDoctrine($queryBuilder);
+$popularUsers = $queryBuilder->getQuery()->getResult();
 ```
 
 ### 合成
