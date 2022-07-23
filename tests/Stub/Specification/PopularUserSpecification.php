@@ -17,7 +17,7 @@ use Ngmy\Specification\AbstractSpecification;
 class PopularUserSpecification extends AbstractSpecification
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSatisfiedBy($candidate): bool
     {
@@ -25,7 +25,7 @@ class PopularUserSpecification extends AbstractSpecification
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToEloquent(EloquentBuilder $query): void
     {
@@ -33,7 +33,7 @@ class PopularUserSpecification extends AbstractSpecification
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {

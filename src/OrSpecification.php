@@ -19,15 +19,15 @@ class OrSpecification extends AbstractSpecification
     /**
      * Create a new OR specification based on two other spec.
      *
-     * @param SpecificationInterface<T> $spec1 Specification one.
-     * @param SpecificationInterface<T> $spec2 Specification two.
+     * @param SpecificationInterface<T> $spec1 specification one
+     * @param SpecificationInterface<T> $spec2 specification two
      */
     public function __construct(private SpecificationInterface $spec1, private SpecificationInterface $spec2)
     {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSatisfiedBy($candidate): bool
     {
@@ -35,7 +35,7 @@ class OrSpecification extends AbstractSpecification
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToEloquent(EloquentBuilder $query): void
     {
@@ -46,11 +46,11 @@ class OrSpecification extends AbstractSpecification
             ->orWhere(function (EloquentBuilder $query): void {
                 $this->spec2->applyToEloquent($query);
             })
-            ;
+        ;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
@@ -69,6 +69,7 @@ class OrSpecification extends AbstractSpecification
 
         /** @var Andx */
         $where1 = $queryBuilder1->getDQLPart('where');
+
         /** @var Andx */
         $where2 = $queryBuilder2->getDQLPart('where');
 

@@ -8,9 +8,16 @@ use Ngmy\Specification\Test\Stub\Orm\Doctrine\User as DoctrineUser;
 use Ngmy\Specification\Test\Stub\Orm\Eloquent\User as EloquentUser;
 use Ngmy\Specification\Test\Stub\Specification\PopularUserSpecification;
 
+/**
+ * @internal
+ * @coversDefaultClass \Ngmy\Specification\NotSpecification
+ */
 class NotSpecificationTest extends AbstractTestCase
 {
-    public function test_applyToEloquent(): void
+    /**
+     * @covers ::applyToEloquent
+     */
+    public function testApplyToEloquent(): void
     {
         $query = EloquentUser::query();
         $spec1 = new PopularUserSpecification();
@@ -21,7 +28,10 @@ class NotSpecificationTest extends AbstractTestCase
         $this->assertSame([100], $query->getBindings());
     }
 
-    public function test_applyToDoctrine(): void
+    /**
+     * @covers ::applyToDoctrine
+     */
+    public function testApplyToDoctrine(): void
     {
         $entityManager = $this->createDoctrineEntityManager();
 

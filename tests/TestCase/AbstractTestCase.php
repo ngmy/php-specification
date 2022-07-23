@@ -36,6 +36,7 @@ abstract class AbstractTestCase extends TestCase
             'memory' => true,
         ];
         $config = DoctrineSetup::createAttributeMetadataConfiguration([]);
+
         return DoctrineEntityManager::create($dbParams, $config);
     }
 }

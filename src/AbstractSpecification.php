@@ -7,7 +7,6 @@ namespace Ngmy\Specification;
 use BadMethodCallException;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
-use Ngmy\Specification\SpecificationInterface;
 
 /**
  * Abstract base implementation of the `SpecificationInterface` interface with default
@@ -19,12 +18,12 @@ use Ngmy\Specification\SpecificationInterface;
 abstract class AbstractSpecification implements SpecificationInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract public function isSatisfiedBy($candidate): bool;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function and(SpecificationInterface $specification): SpecificationInterface
     {
@@ -32,7 +31,7 @@ abstract class AbstractSpecification implements SpecificationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function or(SpecificationInterface $specification): SpecificationInterface
     {
@@ -40,7 +39,7 @@ abstract class AbstractSpecification implements SpecificationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function not(): SpecificationInterface
     {
@@ -48,7 +47,7 @@ abstract class AbstractSpecification implements SpecificationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToEloquent(EloquentBuilder $query): void
     {
@@ -56,7 +55,7 @@ abstract class AbstractSpecification implements SpecificationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {

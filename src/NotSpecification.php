@@ -19,14 +19,14 @@ class NotSpecification extends AbstractSpecification
     /**
      * Create a new NOT specification based on another spec.
      *
-     * @param SpecificationInterface<T> $spec1 Specification instance to not.
+     * @param SpecificationInterface<T> $spec1 specification instance to not
      */
     public function __construct(private SpecificationInterface $spec1)
     {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSatisfiedBy($candidate): bool
     {
@@ -34,7 +34,7 @@ class NotSpecification extends AbstractSpecification
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToEloquent(EloquentBuilder $query): void
     {
@@ -44,11 +44,12 @@ class NotSpecification extends AbstractSpecification
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
         $this->spec1->applyToDoctrine($queryBuilder);
+
         /** @var Andx */
         $where = $queryBuilder->getDQLPart('where');
         $queryBuilder->where($queryBuilder->expr()->not($where));

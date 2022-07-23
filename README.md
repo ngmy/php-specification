@@ -41,7 +41,7 @@ use Ngmy\Specification\AbstractSpecification;
 class PopularUserSpecification extends AbstractSpecification
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSatisfiedBy($candidate): bool
     {
@@ -78,7 +78,7 @@ Write the selection criteria in this method using the `where` method, etc.
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 public function applyToEloquent(EloquentBuilder $query): void
 {
@@ -104,7 +104,7 @@ Write the selection criteria in this method using the `andWhere` method, etc.
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
 {

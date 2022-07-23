@@ -40,7 +40,7 @@ use Ngmy\Specification\AbstractSpecification;
 class PopularUserSpecification extends AbstractSpecification
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSatisfiedBy($candidate): bool
     {
@@ -77,7 +77,7 @@ $popularUsers = array_filter(function (User $users) use ($spec): void {
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 public function applyToEloquent(EloquentBuilder $query): void
 {
@@ -103,7 +103,7 @@ $popularUsers = $query->get();
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
 {

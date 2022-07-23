@@ -20,47 +20,48 @@ interface SpecificationInterface
     /**
      * Check if the `$candidate` argument is satisfied by the specification.
      *
-     * @param T $candidate Object to test.
-     * @return bool `true` if the `$candidate` argument satisfies the specification.
+     * @param T $candidate object to test
+     *
+     * @return bool `true` if the `$candidate` argument satisfies the specification
      */
     public function isSatisfiedBy($candidate): bool;
 
     /**
      * Create a new specification that is the AND operation of this specification and another specification.
      *
-     * @param SpecificationInterface<T> $specification Specification to AND.
-     * @return SpecificationInterface<T> A new specification.
+     * @param SpecificationInterface<T> $specification specification to AND
+     *
+     * @return SpecificationInterface<T> a new specification
      */
     public function and(SpecificationInterface $specification): SpecificationInterface;
 
     /**
      * Create a new specification that is the OR operation of this specification and another specification.
      *
-     * @param SpecificationInterface<T> $specification Specification to OR.
-     * @return SpecificationInterface<T> A new specification.
+     * @param SpecificationInterface<T> $specification specification to OR
+     *
+     * @return SpecificationInterface<T> a new specification
      */
     public function or(SpecificationInterface $specification): SpecificationInterface;
 
     /**
      * Create a new specification that is the NOT operation of this specification.
      *
-     * @return SpecificationInterface<T> A new specification.
+     * @return SpecificationInterface<T> a new specification
      */
     public function not(): SpecificationInterface;
 
     /**
      * Apply this specification to Eloquent ORM.
      *
-     * @param EloquentBuilder|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\Relation $query Eloquent ORM.
-     * @return void
+     * @param EloquentBuilder|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\Relation $query eloquent ORM
      */
     public function applyToEloquent(EloquentBuilder $query): void;
 
     /**
      * Apply this specification to Doctrine ORM.
      *
-     * @param DoctrineQueryBuilder $queryBuilder Doctrine ORM.
-     * @return void
+     * @param DoctrineQueryBuilder $queryBuilder doctrine ORM
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void;
 }
