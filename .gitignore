@@ -8,3 +8,7 @@
 
 # PHPStan
 /phpstan.neon
+
+# PHP-CS-Fixer
+/.php-cs-fixer.php
+/.php-cs-fixer.cache

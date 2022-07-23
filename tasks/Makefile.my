@@ -25,4 +25,8 @@ my/lint:
 	docker-compose exec php phpstan clear-result-cache
 	docker-compose exec php phpstan analyse ${ARG}
 
+## フォーマッターを実行する
+my/fmt:
+	docker-compose exec php php-cs-fixer fix ${ARG}
+
 # vim: set ft=make:
