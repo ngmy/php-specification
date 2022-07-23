@@ -156,6 +156,13 @@ $spec1 = new Specification1();
 $spec2 = $spec1->not();
 ```
 
+## 使用例
+
+- [ngmy/php-specification-example](https://github.com/ngmy/php-specification-example)
+  - このプロジェクトはPHP Specificationを使用して仕様パターンを実装するコード例です。  
+    ドメイン駆動設計のアプローチに従って書かれており、仕様とリポジトリーを組み合わせるコード例があります。  
+    ORMにはEloquentとDoctrineを使用しています。
+
 ## License
 
 PHP Specificationは[MITライセンス](http://opensource.org/licenses/MIT)の下で提供されるオープンソースソフトウェアです。

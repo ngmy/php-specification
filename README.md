@@ -160,6 +160,13 @@ $spec1 = new Specification1();
 $spec2 = $spec1->not();
 ```
 
+## Example of use
+
+- [ngmy/php-specification-example](https://github.com/ngmy/php-specification-example)
+  - This project is a code example of using the PHP Specification to implement a specification pattern.  
+    It is written following Domain-Driven Design approach and has a code example of combining a specification and a repository.  
+    It uses Eloquent and Doctrine for the ORM.
+
 ## License
 
 PHP Specification is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
