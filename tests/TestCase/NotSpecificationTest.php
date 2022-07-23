@@ -8,7 +8,7 @@ use Ngmy\Specification\Test\Stub\Orm\Doctrine\User as DoctrineUser;
 use Ngmy\Specification\Test\Stub\Orm\Eloquent\User as EloquentUser;
 use Ngmy\Specification\Test\Stub\Specification\PopularUserSpecification;
 
-class NotSpecificationTest extends TestCase
+class NotSpecificationTest extends AbstractTestCase
 {
     public function test_applyToEloquent(): void
     {

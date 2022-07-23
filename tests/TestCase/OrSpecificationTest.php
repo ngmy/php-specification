@@ -9,7 +9,7 @@ use Ngmy\Specification\Test\Stub\Orm\Eloquent\User as EloquentUser;
 use Ngmy\Specification\Test\Stub\Specification\ActiveUserSpecification;
 use Ngmy\Specification\Test\Stub\Specification\PopularUserSpecification;
 
-class OrSpecificationTest extends TestCase
+class OrSpecificationTest extends AbstractTestCase
 {
     public function test_applyToEloquent(): void
     {

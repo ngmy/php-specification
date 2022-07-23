@@ -7,9 +7,9 @@ namespace Ngmy\Specification\Test\TestCase;
 use Doctrine\ORM\EntityManager as DoctrineEntityManager;
 use Doctrine\ORM\ORMSetup as DoctrineSetup;
 use Illuminate\Database\Capsule\Manager as EloquentManager;
-use PHPUnit\Framework\TestCase as FrameworkTestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class TestCase extends FrameworkTestCase
+abstract class AbstractTestCase extends TestCase
 {
     public function setUp(): void
     {
