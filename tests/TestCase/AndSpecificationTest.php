@@ -44,6 +44,7 @@ class AndSpecificationTest extends AbstractTestCase
         $spec3 = $spec1->and($spec2);
         $spec3->applyToDoctrine($queryBuilder);
 
-        $this->assertSame('SELECT u FROM Ngmy\Specification\Test\Stub\Orm\Doctrine\User u WHERE u.votes > 100 AND u.active = 1', $queryBuilder->getDQL());
+        $this->assertSame('SELECT u FROM Ngmy\Specification\Test\Stub\Orm\Doctrine\User u WHERE u.votes > :votes AND u.active = :active', $queryBuilder->getDQL());
+        $this->assertSame(['votes' => 100, 'active' => 1], $this->getDoctrineParametersArray($queryBuilder));
     }
 }

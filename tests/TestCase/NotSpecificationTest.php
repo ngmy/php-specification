@@ -41,6 +41,7 @@ class NotSpecificationTest extends AbstractTestCase
         $spec2 = $spec1->not();
         $spec2->applyToDoctrine($queryBuilder);
 
-        $this->assertSame('SELECT u FROM Ngmy\Specification\Test\Stub\Orm\Doctrine\User u WHERE NOT(u.votes > 100)', $queryBuilder->getDQL());
+        $this->assertSame('SELECT u FROM Ngmy\Specification\Test\Stub\Orm\Doctrine\User u WHERE NOT(u.votes > :votes)', $queryBuilder->getDQL());
+        $this->assertSame(['votes' => 100], $this->getDoctrineParametersArray($queryBuilder));
     }
 }

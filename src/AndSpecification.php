@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Ngmy\Specification;
 
-use Doctrine\ORM\Query\Expr\Andx;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr\Andx as DoctrineAndx;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 
@@ -67,11 +68,21 @@ class AndSpecification extends AbstractSpecification
         $this->spec1->applyToDoctrine($queryBuilder1);
         $this->spec2->applyToDoctrine($queryBuilder2);
 
-        /** @var Andx */
+        /** @var DoctrineAndx */
         $where1 = $queryBuilder1->getDQLPart('where');
 
-        /** @var Andx */
+        /** @var DoctrineAndx */
         $where2 = $queryBuilder2->getDQLPart('where');
+
+        $parameters = $queryBuilder->getParameters();
+        $parameters1 = $queryBuilder1->getParameters();
+        $parameters2 = $queryBuilder2->getParameters();
+
+        $parameters = new ArrayCollection(array_merge(
+            $parameters->toArray(),
+            $parameters1->toArray(),
+            $parameters2->toArray(),
+        ));
 
         $queryBuilder->andWhere(
             $queryBuilder->expr()->andX(
@@ -79,5 +90,6 @@ class AndSpecification extends AbstractSpecification
                 $where2,
             )
         );
+        $queryBuilder->setParameters($parameters);
     }
 }

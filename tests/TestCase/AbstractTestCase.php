@@ -6,6 +6,8 @@ namespace Ngmy\Specification\Test\TestCase;
 
 use Doctrine\ORM\EntityManager as DoctrineEntityManager;
 use Doctrine\ORM\ORMSetup as DoctrineSetup;
+use Doctrine\ORM\Query\Parameter as DoctrineParameter;
+use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Database\Capsule\Manager as EloquentManager;
 use PHPUnit\Framework\TestCase;
 
@@ -38,5 +40,18 @@ abstract class AbstractTestCase extends TestCase
         $config = DoctrineSetup::createAttributeMetadataConfiguration([]);
 
         return DoctrineEntityManager::create($dbParams, $config);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function getDoctrineParametersArray(DoctrineQueryBuilder $queryBuilder): array
+    {
+        return array_column($queryBuilder->getParameters()->map(function (DoctrineParameter $parameter) {
+            return [
+                'name' => $parameter->getName(),
+                'value' => $parameter->getValue(),
+            ];
+        })->toArray(), 'value', 'name');
     }
 }

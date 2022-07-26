@@ -75,12 +75,12 @@ Implement the `applyToEloquent` method.
 Write the selection criteria in this method using the `where` method, etc.
 
 ```php
-use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 /**
  * {@inheritdoc}
  */
-public function applyToEloquent(EloquentBuilder $query): void
+public function applyToEloquent(Builder $query): void
 {
     $query->where('votes', '>', 100);
 }
@@ -101,14 +101,15 @@ Implement the `applyToDoctrine` method.
 Write the selection criteria in this method using the `andWhere` method, etc.
 
 ```php
-use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * {@inheritdoc}
  */
-public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
+public function applyToDoctrine(QueryBuilder $queryBuilder): void
 {
-    $queryBuilder->andWhere(sprintf('%s.votes > 100', $queryBuilder->getRootAliases()[0]));
+    $queryBuilder->addCriteria(Criteria::create()->andWhere(Criteria::expr()->gt('votes', 100)));
 }
 ```
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ngmy\Specification\Test\Stub\Specification;
 
+use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 use Ngmy\Specification\AbstractSpecification;
@@ -37,6 +38,6 @@ class PopularUserSpecification extends AbstractSpecification
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
-        $queryBuilder->andWhere(sprintf('%s.votes > 100', $queryBuilder->getRootAliases()[0]));
+        $queryBuilder->addCriteria(DoctrineCriteria::create()->andWhere(DoctrineCriteria::expr()->gt('votes', 100)));
     }
 }

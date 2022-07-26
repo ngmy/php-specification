@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ngmy\Specification;
 
-use Doctrine\ORM\Query\Expr\Andx;
+use Doctrine\ORM\Query\Expr\Andx as DoctrineAndx;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 
@@ -50,8 +50,9 @@ class NotSpecification extends AbstractSpecification
     {
         $this->spec1->applyToDoctrine($queryBuilder);
 
-        /** @var Andx */
+        /** @var DoctrineAndx */
         $where = $queryBuilder->getDQLPart('where');
+
         $queryBuilder->where($queryBuilder->expr()->not($where));
     }
 }

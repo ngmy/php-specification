@@ -74,12 +74,12 @@ $popularUsers = array_filter(function (User $users) use ($spec): void {
 このメソッドに`where`メソッド等で選択条件を記述します。
 
 ```php
-use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 /**
  * {@inheritdoc}
  */
-public function applyToEloquent(EloquentBuilder $query): void
+public function applyToEloquent(Builder $query): void
 {
     $query->where('votes', '>', 100);
 }
@@ -100,14 +100,15 @@ $popularUsers = $query->get();
 このメソッドに`andWhere`メソッド等で選択条件を記述します。
 
 ```php
-use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * {@inheritdoc}
  */
-public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
+public function applyToDoctrine(QueryBuilder $queryBuilder): void
 {
-    $queryBuilder->andWhere(sprintf('%s.votes > 100', $queryBuilder->getRootAliases()[0]));
+    $queryBuilder->addCriteria(Criteria::create()->andWhere(Criteria::expr()->gt('votes', 100)));
 }
 ```
 
