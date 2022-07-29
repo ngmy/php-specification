@@ -1,0 +1,73 @@
+name: Example lint
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.1']
+        deps: [highest, lowest]
+        include:
+          - php: '8.1'
+            deps: current
+
+    name: PHP ${{ matrix.php }} + ${{ matrix.deps }} dependencies
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          repository: ngmy/php-specification-example
+
+      - name: Set up PHP ${{ matrix.php }}
+        run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+
+      - name: Update Composer to latest version
+        run: sudo composer self-update
+
+      - name: Allow Composer bin plugin
+        run: sudo composer global config allow-plugins.bamarni/composer-bin-plugin true
+
+      - name: Install Composer bin plugin
+        run: sudo composer global require bamarni/composer-bin-plugin
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache Composer packages
+        if: matrix.deps == 'current'
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: |
+          if [[ "${{ matrix.deps }}" == 'current' && "${{ steps.composer-cache.outputs.cache-hit }}" != 'true' ]]; then
+            composer install --no-interaction
+          fi
+          if [[ "${{ matrix.deps }}" == 'highest' ]]; then
+            composer update --no-interaction
+          fi
+          if [[ "${{ matrix.deps }}" == 'lowest' ]]; then
+            composer update --no-interaction --prefer-lowest --prefer-stable
+          fi
+
+      - name: Update ngmy/specification to ${{ github.sha }}
+        run: composer update ngmy/specification:dev-master#${{ github.sha }}
+
+      - name: Install tools
+        run: |
+          composer bin phpstan install
+          composer bin phpunit install
+
+      - name: Run lint
+        run: vendor/bin/phpstan analyse
