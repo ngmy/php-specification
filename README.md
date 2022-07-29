@@ -2,7 +2,7 @@
 
 # PHP Specification
 
-[![test](https://github.com/ngmy/php-specification/actions/workflows/php.yml/badge.svg)](https://github.com/ngmy/php-specification/actions/workflows/php.yml)
+[![test](https://github.com/ngmy/php-specification/actions/workflows/test.yml/badge.svg)](https://github.com/ngmy/php-specification/actions/workflows/test.yml)
 [![coverage](https://coveralls.io/repos/github/ngmy/php-specification/badge.svg?branch=master)](https://coveralls.io/github/ngmy/php-specification?branch=master)
 
 This is a library to help implement the [specification pattern](https://www.martinfowler.com/apsupp/spec.pdf) in PHP.  
