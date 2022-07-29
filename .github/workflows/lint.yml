@@ -1,11 +1,11 @@
-name: test
+name: Lint
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  lint:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     strategy:
       fail-fast: false
@@ -16,7 +16,7 @@ jobs:
           - php: '8.1'
             deps: current
 
-    name: Test (PHP ${{ matrix.php }}, ${{ matrix.deps }} dependencies)
+    name: PHP ${{ matrix.php }} + ${{ matrix.deps }} dependencies
 
     steps:
       - name: Check out repository
@@ -29,10 +29,10 @@ jobs:
         run: sudo composer self-update
 
       - name: Allow Composer bin plugin
-        run: composer global config allow-plugins.bamarni/composer-bin-plugin true
+        run: sudo composer global config allow-plugins.bamarni/composer-bin-plugin true
 
       - name: Install Composer bin plugin
-        run: composer global require bamarni/composer-bin-plugin
+        run: sudo composer global require bamarni/composer-bin-plugin
 
       - name: Validate composer.json and composer.lock
         run: composer validate
@@ -60,21 +60,9 @@ jobs:
           fi
 
       - name: Install tools
-        run: composer bin all install
+        run: |
+          composer bin phpstan install
+          composer bin phpunit install
 
       - name: Run lint
         run: vendor/bin/phpstan analyse
-
-      - name: Run unit tests
-        env:
-          XDEBUG_MODE: coverage
-        run: vendor/bin/phpunit
-
-      - name: Upload coverage results to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: nick-invision/retry@v2
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
