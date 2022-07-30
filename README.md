@@ -101,7 +101,6 @@ Implement the `applyToDoctrine` method.
 Write the selection criteria in this method using the `andWhere` method, etc.
 
 ```php
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -109,7 +108,13 @@ use Doctrine\ORM\QueryBuilder;
  */
 public function applyToDoctrine(QueryBuilder $queryBuilder): void
 {
-    $queryBuilder->addCriteria(Criteria::create()->andWhere(Criteria::expr()->gt('votes', 100)));
+    $aliases = $queryBuilder->getRootAliases();
+    $parameters = $queryBuilder->getParameters();
+
+    $queryBuilder
+        ->andWhere(sprintf('%s.votes > ?%d', $aliases[0], $parameters->count() + 1))
+        ->setParameter($parameters->count() + 1, 100)
+    ;
 }
 ```
 

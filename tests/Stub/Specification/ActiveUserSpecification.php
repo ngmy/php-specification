@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ngmy\Specification\Test\Stub\Specification;
 
-use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 use Ngmy\Specification\AbstractSpecification;
@@ -38,6 +37,12 @@ class ActiveUserSpecification extends AbstractSpecification
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
-        $queryBuilder->addCriteria(DoctrineCriteria::create()->andWhere(DoctrineCriteria::expr()->eq('active', 1)));
+        $aliases = $queryBuilder->getRootAliases();
+        $parameters = $queryBuilder->getParameters();
+
+        $queryBuilder
+            ->andWhere(sprintf('%s.active = ?%d', $aliases[0], $parameters->count() + 1))
+            ->setParameter($parameters->count() + 1, 1)
+        ;
     }
 }

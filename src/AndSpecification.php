@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ngmy\Specification;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection as DoctrineArrayCollection;
 use Doctrine\ORM\Query\Expr\Andx as DoctrineAndx;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
@@ -55,17 +55,20 @@ class AndSpecification extends AbstractSpecification
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
-        $entity = $queryBuilder->getRootEntities()[0];
-        $alias = $queryBuilder->getRootAliases()[0];
+        $entities = $queryBuilder->getRootEntities();
+        $aliases = $queryBuilder->getRootAliases();
+        $parameters = $queryBuilder->getParameters();
 
         $entityManager = $queryBuilder->getEntityManager();
 
         $queryBuilder1 = $entityManager->createQueryBuilder();
-        $queryBuilder1->from($entity, $alias);
-        $queryBuilder2 = $entityManager->createQueryBuilder();
-        $queryBuilder2->from($entity, $alias);
-
+        $queryBuilder1->from($entities[0], $aliases[0]);
+        $queryBuilder1->setParameters($parameters);
         $this->spec1->applyToDoctrine($queryBuilder1);
+
+        $queryBuilder2 = $entityManager->createQueryBuilder();
+        $queryBuilder2->from($entities[0], $aliases[0]);
+        $queryBuilder2->setParameters($parameters);
         $this->spec2->applyToDoctrine($queryBuilder2);
 
         /** @var DoctrineAndx */
@@ -74,22 +77,20 @@ class AndSpecification extends AbstractSpecification
         /** @var DoctrineAndx */
         $where2 = $queryBuilder2->getDQLPart('where');
 
-        $parameters = $queryBuilder->getParameters();
-        $parameters1 = $queryBuilder1->getParameters();
-        $parameters2 = $queryBuilder2->getParameters();
-
-        $parameters = new ArrayCollection(array_merge(
-            $parameters->toArray(),
-            $parameters1->toArray(),
-            $parameters2->toArray(),
-        ));
-
         $queryBuilder->andWhere(
             $queryBuilder->expr()->andX(
                 $where1,
                 $where2,
             )
         );
+
+        $parameters1 = $queryBuilder1->getParameters();
+        $parameters2 = $queryBuilder2->getParameters();
+        $parameters = new DoctrineArrayCollection(array_merge(
+            $parameters->toArray(),
+            $parameters1->slice($parameters->count()),
+            $parameters2->slice($parameters->count()),
+        ));
         $queryBuilder->setParameters($parameters);
     }
 }
