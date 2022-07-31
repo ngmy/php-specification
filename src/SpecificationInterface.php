@@ -27,6 +27,20 @@ interface SpecificationInterface
     public function isSatisfiedBy($candidate): bool;
 
     /**
+     * Create a new specification that is always true.
+     *
+     * @return SpecificationInterface<T> a new specification
+     */
+    public static function true(): SpecificationInterface;
+
+    /**
+     * Create a new specification that is always false.
+     *
+     * @return SpecificationInterface<T> a new specification
+     */
+    public static function false(): SpecificationInterface;
+
+    /**
      * Create a new specification that is the AND operation of this specification and another specification.
      *
      * @param SpecificationInterface<T> $specification specification to AND

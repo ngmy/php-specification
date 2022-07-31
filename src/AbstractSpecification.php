@@ -27,6 +27,22 @@ abstract class AbstractSpecification implements SpecificationInterface
     /**
      * {@inheritdoc}
      */
+    public static function true(): SpecificationInterface
+    {
+        return TrueSpecification::getInstance();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function false(): SpecificationInterface
+    {
+        return FalseSpecification::getInstance();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function and(SpecificationInterface $specification): SpecificationInterface
     {
         return new AndSpecification($this, $specification);
