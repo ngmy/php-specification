@@ -61,8 +61,8 @@ jobs:
             composer update --no-interaction --prefer-lowest --prefer-stable
           fi
 
-      - name: Update ngmy/specification to ${{ github.sha }}
-        run: composer update ngmy/specification:dev-master#${{ github.sha }}
+      - name: Install ngmy/specification to ${{ github.sha }}
+        run: composer require ngmy/specification:dev-master#${{ github.sha }}
 
       - name: Install tools
         run: composer bin phpunit install
