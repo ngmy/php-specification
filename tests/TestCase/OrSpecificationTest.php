@@ -44,7 +44,7 @@ class OrSpecificationTest extends AbstractTestCase
         $spec3 = $spec1->or($spec2);
         $spec3->applyToDoctrine($queryBuilder);
 
-        $this->assertSame('SELECT u FROM Ngmy\Specification\Test\Stub\Orm\Doctrine\User u WHERE u.votes > ?1 OR u.active = ?2', $queryBuilder->getDQL());
-        $this->assertSame([1 => 100, 2 => 1], $this->getDoctrineParametersArray($queryBuilder));
+        $this->assertMatchesRegularExpression('/\ASELECT u FROM Ngmy\\\\Specification\\\\Test\\\\Stub\\\\Orm\\\\Doctrine\\\\User u WHERE u\.votes > :dcValue_[0-9]+_[0-9]+ OR u\.active = :dcValue_[0-9]+_[0-9]+\z/', $queryBuilder->getDQL());
+        $this->assertSame([100, 1], $this->getDoctrineParametersArray($queryBuilder));
     }
 }

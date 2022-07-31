@@ -7,6 +7,7 @@ namespace Ngmy\Specification\Test\Stub\Specification;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 use Ngmy\Specification\AbstractSpecification;
+use Ngmy\Specification\Support\DoctrineUtils;
 
 /**
  * Active user specification.
@@ -37,12 +38,9 @@ class ActiveUserSpecification extends AbstractSpecification
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
-        $aliases = $queryBuilder->getRootAliases();
-        $parameters = $queryBuilder->getParameters();
-
-        $queryBuilder
-            ->andWhere(sprintf('%s.active = ?%d', $aliases[0], $parameters->count() + 1))
-            ->setParameter($parameters->count() + 1, 1)
-        ;
+        $queryBuilder->andWhere($queryBuilder->expr()->eq(
+            DoctrineUtils::getAliasedColumnName($queryBuilder, 'active'),
+            DoctrineUtils::createUniqueNamedParameter($this, $queryBuilder, 1),
+        ));
     }
 }

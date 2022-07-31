@@ -43,15 +43,12 @@ abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<mixed>
      */
     protected function getDoctrineParametersArray(DoctrineQueryBuilder $queryBuilder): array
     {
-        return array_column($queryBuilder->getParameters()->map(function (DoctrineParameter $parameter) {
-            return [
-                'name' => $parameter->getName(),
-                'value' => $parameter->getValue(),
-            ];
-        })->toArray(), 'value', 'name');
+        return $queryBuilder->getParameters()->map(function (DoctrineParameter $parameter) {
+            return $parameter->getValue();
+        })->toArray();
     }
 }

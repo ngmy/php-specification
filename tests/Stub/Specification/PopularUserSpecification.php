@@ -7,6 +7,7 @@ namespace Ngmy\Specification\Test\Stub\Specification;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 use Ngmy\Specification\AbstractSpecification;
+use Ngmy\Specification\Support\DoctrineUtils;
 
 /**
  * Popular user specification.
@@ -37,12 +38,9 @@ class PopularUserSpecification extends AbstractSpecification
      */
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
-        $aliases = $queryBuilder->getRootAliases();
-        $parameters = $queryBuilder->getParameters();
-
-        $queryBuilder
-            ->andWhere(sprintf('%s.votes > ?%d', $aliases[0], $parameters->count() + 1))
-            ->setParameter($parameters->count() + 1, 100)
-        ;
+        $queryBuilder->andWhere($queryBuilder->expr()->gt(
+            DoctrineUtils::getAliasedColumnName($queryBuilder, 'votes'),
+            DoctrineUtils::createUniqueNamedParameter($this, $queryBuilder, 100),
+        ));
     }
 }

@@ -17,6 +17,8 @@ use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
  */
 abstract class AbstractSpecification implements SpecificationInterface
 {
+    use DoctrineTrait;
+
     /**
      * {@inheritdoc}
      */

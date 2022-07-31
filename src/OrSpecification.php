@@ -57,18 +57,15 @@ class OrSpecification extends AbstractSpecification
     {
         $entities = $queryBuilder->getRootEntities();
         $aliases = $queryBuilder->getRootAliases();
-        $parameters = $queryBuilder->getParameters();
 
         $entityManager = $queryBuilder->getEntityManager();
 
         $queryBuilder1 = $entityManager->createQueryBuilder();
         $queryBuilder1->from($entities[0], $aliases[0]);
-        $queryBuilder1->setParameters($parameters);
         $this->spec1->applyToDoctrine($queryBuilder1);
 
         $queryBuilder2 = $entityManager->createQueryBuilder();
         $queryBuilder2->from($entities[0], $aliases[0]);
-        $queryBuilder2->setParameters($parameters);
         $this->spec2->applyToDoctrine($queryBuilder2);
 
         /** @var DoctrineAndx */
@@ -84,12 +81,13 @@ class OrSpecification extends AbstractSpecification
             )
         );
 
+        $parameters = $queryBuilder->getParameters();
         $parameters1 = $queryBuilder1->getParameters();
         $parameters2 = $queryBuilder2->getParameters();
         $parameters = new DoctrineArrayCollection(array_merge(
             $parameters->toArray(),
-            $parameters1->slice($parameters->count()),
-            $parameters2->slice($parameters->count()),
+            $parameters1->toArray(),
+            $parameters2->toArray(),
         ));
         $queryBuilder->setParameters($parameters);
     }
