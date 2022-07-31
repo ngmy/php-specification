@@ -13,14 +13,14 @@ use Ngmy\Specification\SpecificationInterface;
 class DoctrineUtils
 {
     /**
-     * Return a aliased column name.
+     * Return a root aliased column name.
      *
      * @param QueryBuilder $queryBuilder query builder
      * @param string       $columnName   column name
      *
-     * @return string aliased column name
+     * @return string root aliased column name
      */
-    public static function getAliasedColumnName(QueryBuilder $queryBuilder, string $columnName): string
+    public static function getRootAliasedColumnName(QueryBuilder $queryBuilder, string $columnName): string
     {
         $aliases = $queryBuilder->getRootAliases();
 
@@ -48,5 +48,42 @@ class DoctrineUtils
         $queryBuilder->setParameter(substr($placeHolder, 1), $value, $type);
 
         return $placeHolder;
+    }
+
+    /**
+     * Return a unique alias.
+     *
+     * @template T
+     *
+     * @param SpecificationInterface<T> $specification specification
+     * @param null|string               $alias         alias
+     *
+     * @return string unique alias
+     */
+    public static function getUniqueAlias(SpecificationInterface $specification, string $alias = null): string
+    {
+        if (null === $alias) {
+            $alias = 'dcAlias';
+        }
+
+        return sprintf('%s_%s', $alias, spl_object_id($specification));
+    }
+
+    /**
+     * Return a unique aliased column name.
+     *
+     * @template T
+     *
+     * @param SpecificationInterface<T> $specification specification
+     * @param string                    $columnName    column name
+     * @param null|string               $alias         alias
+     *
+     * @return string unique aliased column name
+     */
+    public static function getUniqueAliasedColumnName(SpecificationInterface $specification, string $columnName, string $alias = null): string
+    {
+        $alias = self::getUniqueAlias($specification, $alias);
+
+        return sprintf('%s.%s', $alias, $columnName);
     }
 }

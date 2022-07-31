@@ -44,6 +44,22 @@ class TrueSpecification extends AbstractSpecification
     }
 
     /**
+     * @param SpecificationInterface<mixed> $specification
+     */
+    public function and(SpecificationInterface $specification): SpecificationInterface
+    {
+        return new AndSpecification($this, $specification);
+    }
+
+    /**
+     * @param SpecificationInterface<mixed> $specification
+     */
+    public function or(SpecificationInterface $specification): SpecificationInterface
+    {
+        return new OrSpecification($this, $specification);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function applyToEloquent(EloquentBuilder $query): void

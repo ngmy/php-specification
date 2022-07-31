@@ -39,7 +39,7 @@ class ActiveUserSpecification extends AbstractSpecification
     public function applyToDoctrine(DoctrineQueryBuilder $queryBuilder): void
     {
         $queryBuilder->andWhere($queryBuilder->expr()->eq(
-            DoctrineUtils::getAliasedColumnName($queryBuilder, 'active'),
+            DoctrineUtils::getRootAliasedColumnName($queryBuilder, 'active'),
             DoctrineUtils::createUniqueNamedParameter($this, $queryBuilder, 1),
         ));
     }

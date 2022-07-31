@@ -109,7 +109,7 @@ use Ngmy\Specification\Support\DoctrineUtils;
 public function applyToDoctrine(QueryBuilder $queryBuilder): void
 {
     $queryBuilder->andWhere($queryBuilder->expr()->gt(
-        DoctrineUtils::getAliasedColumnName($queryBuilder, 'votes'),
+        DoctrineUtils::getRootAliasedColumnName($queryBuilder, 'votes'),
         DoctrineUtils::createUniqueNamedParameter($this, $queryBuilder, 100),
     ));
 }
