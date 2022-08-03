@@ -22,11 +22,6 @@ abstract class AbstractSpecification implements SpecificationInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function isSatisfiedBy($candidate): bool;
-
-    /**
-     * {@inheritdoc}
-     */
     public static function true(): SpecificationInterface
     {
         return TrueSpecification::getInstance();
