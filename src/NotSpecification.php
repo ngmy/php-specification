@@ -11,7 +11,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 /**
  * NOT decorator, used to create a new specification that is the inverse (NOT) of the given spec.
  *
- * @template T
+ * @template T of object
  * @extends AbstractSpecification<T>
  */
 class NotSpecification extends AbstractSpecification
@@ -28,7 +28,7 @@ class NotSpecification extends AbstractSpecification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy(object $candidate): bool
     {
         return !$this->spec1->isSatisfiedBy($candidate);
     }

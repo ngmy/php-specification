@@ -12,7 +12,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 /**
  * AND specification, used to create a new specification that is the AND of two other specifications.
  *
- * @template T
+ * @template T of object
  * @extends AbstractSpecification<T>
  */
 class AndSpecification extends AbstractSpecification
@@ -30,7 +30,7 @@ class AndSpecification extends AbstractSpecification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy(object $candidate): bool
     {
         return $this->spec1->isSatisfiedBy($candidate) && $this->spec2->isSatisfiedBy($candidate);
     }

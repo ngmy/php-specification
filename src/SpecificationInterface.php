@@ -13,7 +13,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
  * Use the `AbstractSpecification` class as base for creating specifications,
  * and only the `isSatisfiedBy` method must be implemented.
  *
- * @template T
+ * @template T of object
  */
 interface SpecificationInterface
 {
@@ -24,7 +24,7 @@ interface SpecificationInterface
      *
      * @return bool `true` if the `$candidate` argument satisfies the specification
      */
-    public function isSatisfiedBy($candidate): bool;
+    public function isSatisfiedBy(object $candidate): bool;
 
     /**
      * Create a new specification that is always true.

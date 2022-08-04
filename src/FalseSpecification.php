@@ -10,12 +10,13 @@ use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 /**
  * False specification.
  *
- * @extends AbstractSpecification<mixed>
+ * @template T of object
+ * @extends AbstractSpecification<T>
  */
 class FalseSpecification extends AbstractSpecification
 {
-    /** @var null|self Singleton instance of this class. */
-    private static $instance;
+    /** @var self<T> Singleton instance of this class. */
+    private static FalseSpecification $instance;
 
     private function __construct()
     {
@@ -24,12 +25,14 @@ class FalseSpecification extends AbstractSpecification
     /**
      * Return the singleton instance of this class.
      *
-     * @return self singleton instance of this class
+     * @return self<T> singleton instance of this class
      */
     public static function getInstance(): self
     {
-        if (is_null(self::$instance)) {
-            self::$instance = new self();
+        if (!isset(self::$instance)) {
+            /** @var self<T> */
+            $instance = new self();
+            self::$instance = $instance;
         }
 
         return self::$instance;
@@ -38,7 +41,7 @@ class FalseSpecification extends AbstractSpecification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy(object $candidate): bool
     {
         return false;
     }

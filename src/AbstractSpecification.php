@@ -12,7 +12,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
  * Abstract base implementation of the `SpecificationInterface` interface with default
  * implementations for the `and`, `or` and `not` methods.
  *
- * @template T
+ * @template T of object
  * @implements SpecificationInterface<T>
  */
 abstract class AbstractSpecification implements SpecificationInterface
@@ -24,7 +24,10 @@ abstract class AbstractSpecification implements SpecificationInterface
      */
     public static function true(): SpecificationInterface
     {
-        return TrueSpecification::getInstance();
+        /** @var TrueSpecification<T> */
+        $true = TrueSpecification::getInstance();
+
+        return $true;
     }
 
     /**
@@ -32,7 +35,10 @@ abstract class AbstractSpecification implements SpecificationInterface
      */
     public static function false(): SpecificationInterface
     {
-        return FalseSpecification::getInstance();
+        /** @var FalseSpecification<T> */
+        $false = FalseSpecification::getInstance();
+
+        return $false;
     }
 
     /**

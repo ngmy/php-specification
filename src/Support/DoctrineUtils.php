@@ -30,7 +30,7 @@ class DoctrineUtils
     /**
      * Create a new unique named parameter from `$specification`, and bind the `$value` to the `$queryBuilder`.
      *
-     * @template T
+     * @template T of object
      *
      * @param SpecificationInterface<T> $specification specification
      * @param QueryBuilder              $queryBuilder  query builder
@@ -53,7 +53,7 @@ class DoctrineUtils
     /**
      * Return a unique alias.
      *
-     * @template T
+     * @template T of object
      *
      * @param SpecificationInterface<T> $specification specification
      * @param null|string               $alias         alias
@@ -72,7 +72,7 @@ class DoctrineUtils
     /**
      * Return a unique aliased column name.
      *
-     * @template T
+     * @template T of object
      *
      * @param SpecificationInterface<T> $specification specification
      * @param string                    $columnName    column name

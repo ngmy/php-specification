@@ -12,7 +12,7 @@ use Ngmy\Specification\Support\DoctrineUtils;
 /**
  * Active user specification.
  *
- * @template T
+ * @template T of object
  * @extends AbstractSpecification<T>
  */
 class ActiveUserSpecification extends AbstractSpecification
@@ -20,7 +20,7 @@ class ActiveUserSpecification extends AbstractSpecification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($candidate): bool
+    public function isSatisfiedBy(object $candidate): bool
     {
         return true;
     }
