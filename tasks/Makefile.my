@@ -27,6 +27,7 @@ my/lint:
 
 ## フォーマッターを実行する
 my/fmt:
+	rm .php-cs-fixer.cache
 	docker-compose exec php php-cs-fixer fix ${ARG}
 
 # vim: set ft=make:
