@@ -2,7 +2,7 @@
 
 # PHP Specification
 
-[![test](https://github.com/ngmy/php-specification/actions/workflows/php.yml/badge.svg)](https://github.com/ngmy/php-specification/actions/workflows/php.yml)
+[![test](https://github.com/ngmy/php-specification/actions/workflows/test.yml/badge.svg)](https://github.com/ngmy/php-specification/actions/workflows/test.yml)
 [![coverage](https://coveralls.io/repos/github/ngmy/php-specification/badge.svg?branch=master)](https://coveralls.io/github/ngmy/php-specification?branch=master)
 
 これはPHPで[仕様パターン](https://www.martinfowler.com/apsupp/spec.pdf)を実装するのを手助けするライブラリです。  
